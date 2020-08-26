@@ -6,7 +6,7 @@ const handlebar = require("express-handlebars");
 const PORT = 3000;
 const EXT = "hbs"; //handlebars
 
-
+      
 /////////////////////////////////////////////////////////
 // Create server
 /////////////////////////////////////////////////////////
@@ -25,10 +25,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.sendfile(path.join(__dirname, "views", "about.html"));
+  res.render('about');
 });
-
-
+   
+ 
 /////////////////////////////////////////////////////////
 // Activate  handlebars
 /////////////////////////////////////////////////////////
@@ -40,3 +40,5 @@ const hbs = handlebar.create({
 app.engine("hbs", hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', 'views');
+
+app.use(express.static(__dirname +'/public'));
