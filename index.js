@@ -1,6 +1,10 @@
 const express = require("express");
 const path = require("path");
 const handlebar = require("express-handlebars");
+const mainPage = require('./routes/main-page');
+const aboutPage = require('./routes/about');
+const coursesPage = require('./routes/courses');
+const addCousePage = require('./routes/addCourse');
 
 // Constans
 const PORT = 3000;
@@ -14,21 +18,8 @@ const app = express();
 app.listen(PORT, () => {
   console.log("qwery");
 });
-
-/**
- * 1 param -> url
- * 2 param -> func with 3 args
- */
-app.get("/", (req, res) => {
-  res.status(200);
-  res.render('index');
-});
-
-app.get("/about", (req, res) => {
-  res.render('about');
-});
+    
    
- 
 /////////////////////////////////////////////////////////
 // Activate  handlebars
 /////////////////////////////////////////////////////////
@@ -42,3 +33,10 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(express.static(__dirname +'/public'));
+app.use(express.urlencoded({extended:true})); 
+
+app.use('/',mainPage);
+app.use('/courses',coursesPage);
+app.use('/about',aboutPage);
+app.use('/addCourse',addCousePage);
+       

@@ -8,10 +8,17 @@ main {
   flex: 1 0 auto;
 }
 
-.page-footer {
+.bcolor{
   background: #0000ae;
 }
 
-.nav-wrapper{
-  background: #101754;
+.forms{
+  background: #14045B;
+  margin: 1rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+input{
+  color:white;
 }
