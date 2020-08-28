@@ -34,6 +34,9 @@ app.set('views', 'views');
 app.use(express.static(__dirname +'/public'));
 app.use(express.urlencoded({extended:true})); 
 
+/////////////////////////////////////////////////////////
+// Add routers
+/////////////////////////////////////////////////////////
 app.use('/',mainPage);
 app.use('/courses',coursesPage);
 app.use('/about',aboutPage);

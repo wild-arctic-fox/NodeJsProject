@@ -2,9 +2,15 @@ const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const fs = require("fs");
 
+// path to JSON file with data
 const pathToFile = path.join(__dirname, "..", "courses.json");
 
+
+/////////////////////////////////////////////////////////
+// Model to save courses data
+/////////////////////////////////////////////////////////
 class CourseModel {
+
     constructor({ name, author, price, email, en = false, rus = false, resourses = false }) {
       this.author = author;
       this.name = name;
@@ -16,7 +22,8 @@ class CourseModel {
       this.resourses = !!resourses;
     }
 
-
+  /////////////////////////////////////////////////////////
+  // Save new course to the file
   async save() {
     const coursesData = await CourseModel.getAllCourses();
     coursesData.push(this);
@@ -31,6 +38,8 @@ class CourseModel {
     });
   }
 
+  /////////////////////////////////////////////////////////
+  // Return array of existing courses
   static getAllCourses() {
     return new Promise((resolve, reject) => {
       const encoding = "utf-8";
