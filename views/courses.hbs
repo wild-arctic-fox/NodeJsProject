@@ -1,1 +1,22 @@
 <h1>{{title}}</h1>
+
+{{#if data.length}}
+{{#each data}}
+<div>
+    <div class="s6 m6">
+        <div class="card indigo darken-4">
+            <div class="card-content white-text">
+                <span class="card-title">{{name}}</span>
+                <h6>Price: {{price}} $ </h6>
+                <h6>Author: {{author}}</h6>
+            </div>
+            <div class="card-action">
+                <a class="waves-effect waves-light btn" href="/courses/{{id}}">Buy course</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+{{else}}
+<h6>No available courses</h6>
+{{/if}}

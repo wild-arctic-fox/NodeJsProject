@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+
+{{#if data}}
+<div>
+    <div class="s6 m6">
+        <div class="card indigo darken-4">
+            <div class="card-content white-text">
+                <span class="card-title">{{data.name}}</span>
+                <h6>Price: {{data.price}} $ </h6>
+                <h6>Author: {{data.author}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+{{else}}
+<h6>Unreal course</h6>
+{{/if}}

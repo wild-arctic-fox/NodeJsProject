@@ -52,6 +52,17 @@ class CourseModel {
       });
     });
   }
+
+  /////////////////////////////////////////////////////////
+  // Return course by ID
+  static async getCourseById(id) {
+    const coursesData = await CourseModel.getAllCourses();
+    let course = null;
+    if(coursesData.length){
+        course = coursesData.find(item => item.id === id);
+    }
+    return course;
+  }
 }
 
 module.exports = CourseModel;

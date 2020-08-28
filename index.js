@@ -15,7 +15,7 @@ const EXT = "hbs"; //handlebars
 /////////////////////////////////////////////////////////
 const app = express();
 app.listen(PORT, () => {
-  console.log("qwery");
+  console.log("First Log");
 });
     
    
