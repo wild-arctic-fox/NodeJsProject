@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const handlebar = require("express-handlebars");
 const mainPage = require('./routes/main-page');
 const aboutPage = require('./routes/about');

@@ -2,46 +2,49 @@
     <form class="col s12" action="/addCourse" method="POST">
         <div class="row">
             <div class="input-field col s6">
-                <input placeholder="Placeholder" id="first_name" type="text" class="validate" name="firstName">
-                <label for="first_name">First Name</label>
+                <input id="name" type="text" class="validate" name="name">
+                <label for="name">Course name</label>
             </div>
             <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate" name="lastName">
-                <label for="last_name">Last Name</label>
+                <input id="author" type="text" class="validate" name="author">
+                <label for="author">Author</label>
             </div>
+        </div>
+        <div class="row price">
+            <div class="input-field col s12 ">
+                <input id="price" type="number" class="validate" name="price">
+                <label for="price">Price</label>
+            </div>
+        </div>
+        <div class="currency white-text">
+            USD
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="password" type="password" class="validate" name="id">
-                <label for="password">Id</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="email" type="number" class="validate" name="price">
-                <label for="email">Price</label>
+                <input id="email" type="email" class="validate" name="email">
+                <label for="email">Email</label>
             </div>
         </div>
         <!-- Switch -->
         <div class="switch">
-            <h6 class="blue"> Delivery </h6>
+            <h6 class="white-text">Resourses</h6>
             <label>
                 Off
-                <input type="checkbox" name="delivery">
+                <input type="checkbox" name="resourses">
                 <span class="lever"></span>
                 On
             </label>
         </div>
         <p>
             <label>
-                <input type="checkbox" name="isHealthy" />
-                <span>No genetic diseases</span>
+                <input type="checkbox" name="en" value="true"/>
+                <span>English</span>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" name="isEdu" />
-                <span>Higher Education</span>
+                <input type="checkbox" name="rus" />
+                <span>Russian</span>
             </label>
         </p>
         <p>

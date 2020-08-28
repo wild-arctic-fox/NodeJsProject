@@ -8,17 +8,31 @@ main {
   flex: 1 0 auto;
 }
 
-.bcolor{
+.bcolor {
   background: #0000ae;
 }
 
-.forms{
-  background: #14045B;
+.forms {
+  background: #14045b;
   margin: 1rem auto;
   padding: 1rem;
   text-align: center;
 }
 
-input{
-  color:white;
+input {
+  color: white;
+}
+
+.price {
+  width: 70%;
+  float: left;
+}
+
+.white-text{
+  color: aliceblue;
+}
+
+.currency{
+  float: left;
+  margin: 30px;
 }

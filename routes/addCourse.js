@@ -10,9 +10,10 @@ router.get("/", (req, res) => {
   }); 
 });
 
-router.post('/',(req, res)=>{
-    const courseModel = new CourseModel(...req.body);
-    //console.log(req.body)
+router.post('/',async(req, res)=>{
+    const courseModel = new CourseModel(req.body);
+    await courseModel.save();
+    res.redirect('/courses');
 })
 
 module.exports = router;
