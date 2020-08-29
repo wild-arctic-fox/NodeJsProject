@@ -48,3 +48,26 @@ input {
   of the button to still show through. */
    background-color: rgba(121, 85, 72, 0.65);
  }
+
+ .wrapper-flex-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+ }
+
+ .flex-inside{
+  flex: 0 32%;
+ }
+
+ .card-flex{
+  padding: 1rem;
+  border: 0.5rem solid;
+  margin: 1rem;
+ }
+
+ .only-card{
+  width: fit-content;
+  margin: auto;
+  min-width: 50%;
+ 
+ }

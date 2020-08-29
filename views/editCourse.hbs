@@ -1,0 +1,66 @@
+<div class="row forms">
+    <form class="col s12" action="/courses/{{data.id}}/edit" method="POST">
+        <div class="row">
+            <div class="input-field col s6">
+                <span class="white-text">Course name</span>
+                <input placeholder="" id="name" type="text" class="validate" name="name" value="{{data.name}}">
+            </div>
+            <div class="input-field col s6">
+                <span class="white-text">Author</span>
+                <input placeholder="" id="author" type="text" class="validate" name="author" value="{{data.author}}">
+            </div>
+        </div>
+        <div class="row price">
+            <div class="input-field col s12 ">
+                <span class="white-text">Price</span>
+                <input placeholder="" id="price" type="number" class="validate" name="price" value="{{data.price}}">
+            </div>
+        </div>
+        <div class="currency white-text">
+            USD
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <span class="white-text">Email</span>
+                <input placeholder="" id="email" type="email" class="validate" name="email" value="{{data.email}}">
+            </div>
+        </div>
+        <!-- Switch -->
+        <div class="switch">
+            <h6 class="white-text">Resourses</h6>
+            <label>
+                Off
+                {{#if data.resourses}}
+                <input type="checkbox" name="resourses" checked="checked">
+                {{else}}
+                <input type="checkbox" name="resourses">
+                {{/if}}
+                <span class="lever"></span>
+                On
+            </label>
+        </div>
+        <p>
+            <label>
+                {{#if data.en}}
+                <input type="checkbox" name="en" checked="checked">
+                {{else}}
+                <input type="checkbox" name="en">
+                {{/if}}
+                <span>English</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                {{#if data.rus}}
+                <input type="checkbox" name="rus" checked="checked">
+                {{else}}
+                <input type="checkbox" name="rus">
+                {{/if}}
+                <span>Russian</span>
+            </label>
+        </p>
+        <p>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Edit !!!</button>
+            <input type="hidden" name="id" value="{{data.id}}" />
+    </form>
+</div>

@@ -63,6 +63,13 @@ class CourseModel {
     }
     return course;
   }
+
+  /////////////////////////////////////////////////////////
+  // Update course by ID
+  static async updateCourse({id, name, author, price, email, en, rus, resourses}){
+    // todo
+  }
+
 }
 
 module.exports = CourseModel;

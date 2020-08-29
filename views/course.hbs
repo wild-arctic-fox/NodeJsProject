@@ -2,12 +2,16 @@
 
 {{#if data}}
 <div>
-    <div class="s6 m6">
+    <div class="only-card s6 m6">
         <div class="card indigo darken-4">
             <div class="card-content white-text">
                 <span class="card-title">{{data.name}}</span>
                 <h6>Price: {{data.price}} $ </h6>
                 <h6>Author: {{data.author}}</h6>
+                <div>
+                <a class="waves-effect waves-light btn" href="/courses/{{data.id}}" target="_blanc">Buy course</a>
+                <a class="waves-effect waves-light btn" href="/courses/{{data.id}}/edit?allow=true">Edit</a>
+            </div>
             </div>
         </div>
     </div>
