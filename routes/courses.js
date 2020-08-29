@@ -48,4 +48,6 @@ router.post('/:id/edit',async(req, res)=>{
   await CourseModel.updateCourse(req.body);
   res.redirect('/courses');
 })
+
+
 module.exports = router;

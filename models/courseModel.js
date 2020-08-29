@@ -39,6 +39,20 @@ class CourseModel {
   }
 
   /////////////////////////////////////////////////////////
+  // Save all courses to the file
+  static async saveAll(data) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(pathToFile, JSON.stringify(data), (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  /////////////////////////////////////////////////////////
   // Return array of existing courses
   static getAllCourses() {
     return new Promise((resolve, reject) => {
@@ -67,7 +81,15 @@ class CourseModel {
   /////////////////////////////////////////////////////////
   // Update course by ID
   static async updateCourse({id, name, author, price, email, en, rus, resourses}){
-    // todo
+    const allCourses = await CourseModel.getAllCourses();
+    const updatedCourses = allCourses.map(item => {
+      if(item.id === id){
+        return {id,name,author, price, email, en:!!en, rus:!!rus, resourses:!!resourses}
+      } else {
+        return item;
+      }
+    });
+    await CourseModel.saveAll(updatedCourses);
   }
 
 }
