@@ -4,6 +4,7 @@ const mainPage = require('./routes/main-page');
 const aboutPage = require('./routes/about');
 const coursesPage = require('./routes/courses');
 const addCousePage = require('./routes/addCourse');
+const cartPage = require('./routes/cart');
 
 // Constans
 const PORT = 3000;
@@ -41,4 +42,5 @@ app.use('/',mainPage);
 app.use('/courses',coursesPage);
 app.use('/about',aboutPage);
 app.use('/addCourse',addCousePage);
+app.use('/cart',cartPage);
        

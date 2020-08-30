@@ -1,0 +1,27 @@
+<h2>{{title}}</h2>
+
+{{#if courses.length}}
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+    {{#each courses}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{count}}</td>
+            <td><input type="submit" class="btn" value="Delete"></td>
+        </tr>
+    {{/each}}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Price: {{price}}</td>
+        </tr>
+    </tfoot>
+</table>
+{{else}}
+    <div>Empty cart</div>
+{{/if}}
