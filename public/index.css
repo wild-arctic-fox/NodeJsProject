@@ -78,3 +78,14 @@ input {
  .btn{
    margin: 0.3rem;
  }
+
+ .table-container{
+   width: 70%;
+   margin: 0 auto 1rem;
+   padding: 0 1rem;
+ }
+
+ td,th{
+  text-align: center;
+  padding: 3px;
+ }

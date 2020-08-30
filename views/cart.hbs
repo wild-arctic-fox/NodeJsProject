@@ -1,27 +1,31 @@
 <h2>{{title}}</h2>
 
 {{#if courses.length}}
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Action</th>
-    </thead>
-    <tbody>
-    {{#each courses}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{count}}</td>
-            <td><input type="submit" class="btn" value="Delete"></td>
-        </tr>
-    {{/each}}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>Price: {{price}}</td>
-        </tr>
-    </tfoot>
-</table>
+<div class="table-container blue lighten-4">
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{count}}</td>
+                <td><input type="button" data-id="{{id}}" name="delete" class="btn" value="Delete"></td>
+            </tr>
+            {{/each}}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <h5>Price: {{price}} $</h5>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 {{else}}
-    <div>Empty cart</div>
+<div>Empty cart</div>
 {{/if}}

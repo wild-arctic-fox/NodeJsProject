@@ -45,7 +45,7 @@ class CartModel {
           if (error) {
             reject(error);
           } else {
-            resolve();
+            resolve(data);
           }
         });
       });
@@ -65,6 +65,27 @@ class CartModel {
       });
     });
   }
+
+  /////////////////////////////////////////////////////////
+  // Return cart with deleted course
+  static async deleteCourseFromCart(id){
+    const cartData = await CartModel.getCart();
+    const index = cartData.courses.findIndex(item=>item.id===id);
+    const course = cartData.courses.find(item=>item.id===id);
+    if(course !== undefined){
+      if(course.count > 1){
+        //reduce counter
+        cartData.courses[index].count--;
+      } else {
+        //delete element
+        cartData.courses.splice(index,1);
+      }
+      cartData.price -= +course.price;
+      await CartModel.saveToFile(cartData);
+    }
+    return cartData;
+  }
+
 }
 
 module.exports = CartModel;

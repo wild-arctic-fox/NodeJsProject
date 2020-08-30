@@ -16,6 +16,7 @@ router.post('/add', async(req, res)=>{
     res.redirect('/cart');
 });
 
+
 /////////////////////////////////////////////////////////
 // Display data in the cart 
 router.get('/', async(req, res)=>{
@@ -25,6 +26,14 @@ router.get('/', async(req, res)=>{
         courses,
         price
     }); 
+});
+
+
+/////////////////////////////////////////////////////////
+// Remove course by ID from cart (ajax)
+router.delete('/delete/:id',async(req, res)=>{
+    const cart = await CartModel.deleteCourseFromCart(req.params.id);
+    res.json(cart);
 });
 
 module.exports = router;
