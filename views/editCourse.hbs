@@ -1,5 +1,5 @@
 <div class="row forms">
-    <form class="col s12" action="/courses/{{data.id}}/edit" method="POST">
+    <form class="col s12" action="/courses/{{data._id}}/edit" method="POST">
         <div class="row">
             <div class="input-field col s6">
                 <span class="white-text">Course name</span>
@@ -61,6 +61,6 @@
         </p>
         <p>
             <button class="btn waves-effect waves-light" type="submit" name="action">Edit !!!</button>
-            <input type="hidden" name="id" value="{{data.id}}" />
+            <input type="hidden" name="id" value="{{data._id}}" />
     </form>
 </div>
