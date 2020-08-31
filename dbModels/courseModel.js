@@ -4,6 +4,7 @@ const { model, Schema } = require("mongoose");
 /////////////////////////////////////////////////////////
 // Everything in Mongoose starts with a Schema. 
 // Each schema maps to a MongoDB collection.
+// Course Model Schema
 /////////////////////////////////////////////////////////
 const courseModel = new Schema({
   name: {
