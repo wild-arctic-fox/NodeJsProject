@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const CourseModel = require('../models/courseModel');
+const CourseModel = require("../dbModels/courseModel");
 
 /////////////////////////////////////////////////////////
 // Router for adding new Course
@@ -12,15 +12,28 @@ router.get("/", (req, res) => {
   res.render("addCourse", {
     title: "Add Course",
     data: {},
-  }); 
+  });
 });
 
 /////////////////////////////////////////////////////////
 // Receive data after submit
-router.post('/',async(req, res)=>{
-    const courseModel = new CourseModel(req.body);
+router.post("/", async (req, res) => {
+  const { name, author, email, price, en, rus, resourses } = req.body;
+  const courseModel = new CourseModel({
+    name,
+    author,
+    email,
+    price: +price,
+    resourses: !!resourses,
+    en: !!en,
+    rus: !!rus,
+  });
+  try {
     await courseModel.save();
-    res.redirect('/courses');
-})
+    res.redirect("/courses");
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 module.exports = router;
