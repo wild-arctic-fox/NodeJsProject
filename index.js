@@ -49,12 +49,12 @@ app.use("/cart", cartPage);
 /////////////////////////////////////////////////////////
 const startServer = async () => {
   try {
-    await mongoose.connect(DATA_BASE_URL, { useNewUrlParser: true, useFindAndModify: false });
+    await mongoose.connect(DATA_BASE_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
     app.listen(PORT, () => {
       console.log("First Log");
     });
   } catch (e) {
-    console.log(e);
+    throw new Exception(e);
   }
 };
 startServer();

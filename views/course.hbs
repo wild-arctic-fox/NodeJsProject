@@ -9,7 +9,10 @@
                 <h6>Price: {{data.price}} $ </h6>
                 <h6>Author: {{data.author}} </h6>
                 <div>
-                <a class="waves-effect  pink darken-1 waves-light btn" href="/courses/{{data._id}}" target="_blanc">Buy course</a>
+                <form action="/courses/remove" method="POST" class="inline-me">
+                    <input type="hidden" value="{{data._id}}" name="id">
+                    <input type="submit" class="btn waves-effect deep-orange accent-4" value="Delete Course">
+                </form>
                 <a class="waves-effect waves-light btn" href="/courses/{{data._id}}/edit?allow=true">Edit</a>
                 <form action="/cart/add" method="POST" class="inline-me">
                     <input type="hidden" value="{{data._id}}" name="id">

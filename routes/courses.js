@@ -11,7 +11,6 @@ const router = Router();
 // Router for displaying all courses
 router.get("/", async (req, res) => {
   const data = await CourseModel.find().lean();
-  console.log(data)
   res.render("courses", {
     title: "All courses",
     data, 
@@ -57,6 +56,14 @@ router.post('/:id/edit',async(req, res)=>{
     rus: !!rus,
   };
   await CourseModel.findByIdAndUpdate(req.body.id,courseModel);
+  res.redirect('/courses');
+});
+
+
+/////////////////////////////////////////////////////////
+// Receive id course, needded to delete & delete it
+router.post('/remove',async(req, res)=>{
+  await CourseModel.deleteOne({_id:req.body.id});
   res.redirect('/courses');
 })
 

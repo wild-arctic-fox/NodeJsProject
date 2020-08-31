@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const CourseModel = require("../dbModels/courseModel");
+const { Exception } = require("handlebars");
 
 /////////////////////////////////////////////////////////
 // Router for adding new Course
@@ -32,7 +33,7 @@ router.post("/", async (req, res) => {
     await courseModel.save();
     res.redirect("/courses");
   } catch (e) {
-    console.log(e);
+    throw new Exception(e);
   }
 });
 
