@@ -23,6 +23,11 @@ const courseModel = new Schema({
     type: String,
     required: true,
   },
+  idUser: {
+    type: Schema.Types.ObjectId,
+    ref: 'UserModel',
+    required: true,
+  },
   en: Boolean,
   rus: Boolean,
   resourses: Boolean,

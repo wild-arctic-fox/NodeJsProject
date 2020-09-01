@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
     resourses: !!resourses,
     en: !!en,
     rus: !!rus,
+    idUser: req.user._conditions._id
   });
   try {
     await courseModel.save();
