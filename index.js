@@ -12,7 +12,7 @@ const UserModel = require("./dbModels/userModel");
 // Constans
 const PORT = 3000;
 const EXT = "hbs"; //handlebars
-const USER_ID = '5f4e3702a4b7673ae8df9fb6';
+const USER_ID = '5f4e8471b74ea91544f5831a';
 const PASSWORD = "Rr3XE0ztcNYHBexp";
 const USER_NAME = "pJane";
 const DATA_BASE_NAME = 'CoursesShop'
