@@ -4,12 +4,10 @@ const CartModel = require("../models/cartModel");
 const UserModel = require("../dbModels/userModel");
 const _ = require("lodash");
 
-
 /////////////////////////////////////////////////////////
 // Router for adding course to the cart
 /////////////////////////////////////////////////////////
 const router = Router();
-
 
 /////////////////////////////////////////////////////////
 // Receive id course after submit
@@ -54,11 +52,25 @@ router.post("/add", async (req, res) => {
   res.redirect("/cart");
 });
 
-
 /////////////////////////////////////////////////////////
 // Display data in the cart
 router.get("/", async (req, res) => {
-  const { courses, price } = await CartModel.getCart();
+  const userId = req.user._conditions._id;
+  const user = await UserModel.findById(userId);
+  user.populate("cart.items.courseId").execPopulate();
+
+  const courses = [];
+  for (let i = 0; i < user.cart.items.length; i++) {
+    const course = await CourseModel.findById(
+      user.cart.items[i].courseId
+    ).lean();
+    course.count = user.cart.items[i].count;
+    courses.push(course);
+  }
+
+  const price = calculateSum(courses);
+
+  //display data
   res.render("cart", {
     title: "Cart",
     courses,
@@ -66,12 +78,22 @@ router.get("/", async (req, res) => {
   });
 });
 
-
 /////////////////////////////////////////////////////////
 // Remove course by ID from cart (ajax)
 router.delete("/delete/:id", async (req, res) => {
   const cart = await CartModel.deleteCourseFromCart(req.params.id);
   res.json(cart);
 });
+
+////////////////////////////////////////////
+// Additional functions
+////////////////////////////////////////////
+
+// Calculate Price of courses
+const calculateSum = (courses) => {
+  return courses.reduce((a, b) => (a += b.price * b.count), 0);
+};
+////////////////////////////////////////////
+
 
 module.exports = router;
