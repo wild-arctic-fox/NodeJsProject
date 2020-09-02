@@ -9,20 +9,20 @@ function addEvent() {
         method: "delete",
       })
         .then((res) => res.json())
-        .then((items) => {
-          console.log(items)
-          if (items.length) {
+        .then((data) => {
+          console.log(data)
+          if (data.courses.length) {
             // cart is NOT empty
-            let html = items
+            let html = data.courses
               .map((item2) => {
                 return `<tr>
-                        <td>${item2.courseId.name}</td>
+                        <td>${item2.name}</td>
                         <td>${item2.count}</td>
-                        <td><input type="button" data-id="${item2.courseId._id}" name="delete" class="btn" value="Delete"></td>
+                        <td><input type="button" data-id="${item2._id}" name="delete" class="btn" value="Delete"></td>
                         </tr>`;
                 }).join("");
             document.querySelector("tbody").innerHTML = html;
-            const priceOutput = `<tr><td colspan="3"><h5>Price: ${items.price} $</h5></td></tr>`;
+            const priceOutput = `<tr><td colspan="3"><h5>Price: ${data.price} $</h5></td></tr>`;
             document.querySelector("tfoot").innerHTML = priceOutput;
             addEvent();
           } else {

@@ -49,24 +49,19 @@ router.post("/add", async (req, res) => {
 router.get("/", async (req, res) => {
   const userId = req.user._conditions._id;
   const user = await UserModel.findById(userId);
-  user.populate("cart.items.courseId", "name").execPopulate();
-
-  const courses = [];
-  for (let i = 0; i < user.cart.items.length; i++) {
-    const course = await CourseModel.findById(
-      user.cart.items[i].courseId
-    ).lean();
-    course.count = user.cart.items[i].count;
-    courses.push(course);
-  }
-
+  
+  const coursesData = await user.populate("cart.items.courseId").execPopulate();
+  const courses = coursesData.cart.items.map(item=>{
+        const {name,author,price,email,resourses,_id,en,rus} = item.courseId;
+        return {count:item.count, name,author,price,email,resourses,_id,en,rus};
+  })
   const price = calculateSum(courses);
 
   //display data
   res.render("cart", {
     title: "Cart",
     courses,
-    price,
+    price
   });
 });
 
@@ -83,30 +78,28 @@ router.delete("/delete/:id", async (req, res) => {
   const newCart = { items: existedItems };
 
   // 4 -  find index & item
-  const index = usersCourses.findIndex(
-    (item) => item.courseId.toString() == req.params.id.toString()
-  );
-  const sameCourse = usersCourses.find(
-    (item) => item.courseId.toString() == req.params.id.toString()
-  );
+  const index = usersCourses.findIndex((item) => item.courseId.toString() == req.params.id.toString());
+  const sameCourse = usersCourses.find((item) => item.courseId.toString() == req.params.id.toString());
 
   // 5 - check quantity
   if (sameCourse.count === 1) {
-    // 5 Yes -> remove from array of items
+    // 6 Yes -> remove from array of items
     newCart.items.splice(index, 1);
   } else {
-    // 4 No -> reduce counter
+    // 6 No -> reduce counter
     newCart.items[index].count--;
   }
-  // // 5 update user`s cart
+  // 7 update user`s cart
   await UserModel.findByIdAndUpdate(userId, { cart: newCart });
-  const g = await UserModel.findOne({ _id: userId });
-  await g.populate("cart.items.courseId").execPopulate(function (err, story) {
-    if (err) {
-      throw new Exception(err);
-    }
-    res.json(story.cart.items);
+  const userAgain = await UserModel.findById(userId);
+  const coursesData = await userAgain.populate("cart.items.courseId").execPopulate();
+
+  const courses = coursesData.cart.items.map(item=>{
+        const {name,author,price,email,resourses,_id,en,rus} = item.courseId;
+        return {count:item.count, name,author,price,email,resourses,_id,en,rus};
   });
+  const price = calculateSum(courses);
+  res.json({courses,price});
 });
 
 ////////////////////////////////////////////
