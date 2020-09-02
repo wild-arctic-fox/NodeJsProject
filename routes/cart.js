@@ -23,32 +23,21 @@ router.post("/add", async (req, res) => {
   const sameCourse = usersCourses.find(
     (item) => item.courseId.toString() == courseId.toString()
   );
-  // 4 - check if exist course in user with same _id
+  // 4 - copy prev items
+  const existedItems = _.cloneDeep(usersCourses);
+  const newCart = { items: existedItems };
+  // 5 - check if exist course in user with same _id
   if (!sameCourse) {
-    // 5 - if NO -> 1) read previous items
-    //              2) clone prev array
-    //              3) add new course in array
-    //              4) update user
-    const existedItems = _.cloneDeep(usersCourses);
-    const newCart = { items: existedItems };
-    newCart.items.push({ courseId, count: 1 });
-    await UserModel.findByIdAndUpdate(userId, { cart: newCart });
+    // 6 - if NO -> add new course in array
+    newCart.items.push({ courseId });
   } else {
-    // 6 - if YES -> 1) find item, need to update
-    //               2) find index
-    //               3) copy array
-    //               4) change item by index
-    //               5) update user
-    //console.log(sameCourse);
+    // 7 - if YES -> increase count, change item by index
     sameCourse.count++;
-    const existedItems = _.cloneDeep(usersCourses);
-    const newCart = { items: existedItems };
-    const index = usersCourses.findIndex(
-      (item) => item.courseId.toString() == courseId.toString()
-    );
+    const index = usersCourses.findIndex((item) => item.courseId.toString() == courseId.toString());
     newCart.items[index] = sameCourse;
-    await UserModel.findByIdAndUpdate(userId, { cart: newCart });
   }
+  // 8 - update user
+  await UserModel.findByIdAndUpdate(userId, { cart: newCart });
   res.redirect("/cart");
 });
 
@@ -81,8 +70,7 @@ router.get("/", async (req, res) => {
 /////////////////////////////////////////////////////////
 // Remove course by ID from cart (ajax)
 router.delete("/delete/:id", async (req, res) => {
-  const cart = await CartModel.deleteCourseFromCart(req.params.id);
-  res.json(cart);
+  
 });
 
 ////////////////////////////////////////////
