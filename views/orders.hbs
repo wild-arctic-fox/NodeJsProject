@@ -1,1 +1,24 @@
 <h1>{{title}}</h1>
+
+{{#if orderData.length}}
+    {{#each orderData}}
+    <div class="order">
+        <div class="blue lighten-4">
+            <div>Username - {{name}}</div>
+            <div>Email - {{email}}</div>
+            <div>Order date - {{date}}</div>
+        </div>
+    
+            {{#each courses}}
+            <div class="blue lighten-5">
+                <div>Course name: {{name}}</div>
+                <div>Amount: {{count}}</div>
+                <div>Price of one item: {{price}}</div>
+            </div>
+            {{/each}}
+        <div>Price: {{price}}</div>
+    </div>
+    {{/each}}
+{{else}}
+<div>There is no orders</div>
+{{/if}}
