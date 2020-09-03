@@ -89,3 +89,7 @@ input {
   text-align: center;
   padding: 3px;
  }
+
+ .image-logo{
+  height: -webkit-fill-available;
+ }

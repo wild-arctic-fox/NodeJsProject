@@ -1,9 +1,7 @@
 const { Router } = require("express");
 const CourseModel = require("../dbModels/courseModel");
-const CartModel = require("../models/cartModel");
 const UserModel = require("../dbModels/userModel");
 const _ = require("lodash");
-const { Exception } = require("handlebars");
 
 /////////////////////////////////////////////////////////
 // Router for adding course to the cart
