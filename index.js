@@ -6,6 +6,7 @@ const aboutPage = require("./routes/about");
 const coursesPage = require("./routes/courses");
 const addCousePage = require("./routes/addCourse");
 const cartPage = require("./routes/cart");
+const authPage = require("./routes/auth");
 const ordersPage = require("./routes/orders");
 const UserModel = require("./dbModels/userModel");
 
@@ -56,6 +57,7 @@ app.use("/orders", ordersPage);
 app.use("/about", aboutPage);
 app.use("/addCourse", addCousePage);
 app.use("/cart", cartPage);
+app.use("/login", authPage);
 
 
 /////////////////////////////////////////////////////////

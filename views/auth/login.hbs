@@ -1,0 +1,60 @@
+<div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s6 indigo darken-4"><a href="#login">Sign in</a></li>
+                <li class="tab col s6 indigo darken-4"><a href="#register">Sing up</a></li>
+            </ul>
+        </div>
+        <div id="login" class="col s6 offset-s4"><div class="row forms">
+                 <div><h5 class="white-text">Sing in</h5></div>
+                <form class="col s12" action="/addCourse" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="usernamein" type="text" class="validate" name="usernamein">
+                            <label for="usernamein">Input username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="passwordin" type="password" class="validate" name="passwordin">
+                            <label for="passwordin">Input password</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Sign in</button>
+                </form>
+            </div></div>
+        <div id="register" class="col s6 offset-s4">
+            <div class="row forms">
+                 <div><h5 class="white-text">Sing up</h5></div>
+                <form class="col s12" action="/addCourse" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="username" type="text" class="validate" name="username">
+                            <label for="username">Input username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate" name="email">
+                            <label for="email">Input email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password1" type="password" class="validate" name="password1">
+                            <label for="password1">Input password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password2" type="password" class="validate" name="password2">
+                            <label for="password2">Confirm password</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
