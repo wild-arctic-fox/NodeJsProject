@@ -13,7 +13,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const order = await OrderModel.find({
-      "user.userId": req.user._conditions._id,
+      "user.userId": req.session.user._id,
     });
 
     const orderData = [];
@@ -38,7 +38,7 @@ router.get("/", async (req, res) => {
       orderData: resData
     });
   } catch (e) {
-        throw new Exception(e);
+        throw new Exception(e); 
   }
 });
 
@@ -47,7 +47,7 @@ router.get("/", async (req, res) => {
 // Move cart data to the order model
 router.post("/", async (req, res) => {
   try {
-    const userId = req.user._conditions._id;
+    const userId = req.session.user._id;
     const user = await UserModel.findById(userId);
     const coursesData = await user
       .populate("cart.items.courseId")

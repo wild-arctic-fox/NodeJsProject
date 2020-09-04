@@ -36,15 +36,15 @@ app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", "views");
 
-app.use(async(req,res,next)=>{
-  try {
-    const user = UserModel.findById(USER_ID);
-    req.user = user;
-    next();
-  } catch (error) {
-    throw new Exception(e);
-  }
-});
+// app.use(async(req,res,next)=>{
+//   try {
+//     const user = UserModel.findById(USER_ID);
+//     req.user = user;
+//     next();
+//   } catch (error) {
+//     throw new Exception(e);
+//   }
+// });
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
@@ -77,18 +77,16 @@ app.use("/", authPage);
 const startServer = async () => {
   try {
     await mongoose.connect(DATA_BASE_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
-    const user = await UserModel.findOne();
-    if(!user){
-      //create new user
-      const newUser = new UserModel({
-        name:'Alyona',
-        email:'qwerty@gmail.com',
-        cart:{items:[]}
-      });
-      await newUser.save();
-    } else {
-
-    }
+    // const user = await UserModel.findOne();
+    // if(!user){
+    //   //create new user
+    //   const newUser = new UserModel({
+    //     name:'Alyona',
+    //     email:'qwerty@gmail.com',
+    //     cart:{items:[]}
+    //   });
+    //   await newUser.save();
+    // } 
     app.listen(PORT, () => {
       console.log("First Log");
     });

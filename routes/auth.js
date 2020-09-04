@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const UserModel = require("../dbModels/userModel");
 
 /////////////////////////////////////////////////////////
 // Router for displaying login or registration form
@@ -8,8 +9,16 @@ const router = Router();
 /////////////////////////////////////////////////////////
 // Display login and register forms
 router.get("/login", async (req, res) => {
-  res.render("auth/login", {
-    title: "Sign in/up",
+  const user = await UserModel.findById('5f4e8471b74ea91544f5831a');
+  req.session.user = user;
+  req.session.isAuth = true;
+  req.session.save(err=>{
+    if(err){
+      throw new Error(err);
+    }
+    res.render("auth/login", {
+      title: "Sign in/up",
+    });
   });
 });
 

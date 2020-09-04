@@ -16,7 +16,7 @@ router.post("/add", async (req, res) => {
   // 2 - get course _id
   const courseId = course._id;
   // 3 - get user
-  const userId = req.user._conditions._id;
+  const userId = req.session.user._id;
   const user = await UserModel.findById(userId);
   const usersCourses = user.cart.items;
   const sameCourse = usersCourses.find(
@@ -45,7 +45,7 @@ router.post("/add", async (req, res) => {
 /////////////////////////////////////////////////////////
 // Display data in the cart
 router.get("/", async (req, res) => {
-  const userId = req.user._conditions._id;
+  const userId = req.session.user._id;
   const user = await UserModel.findById(userId);
   
   const coursesData = await user.populate("cart.items.courseId").execPopulate();
@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
 // Remove course by ID from cart (ajax)
 router.delete("/delete/:id", async (req, res) => {
   // 1 - get cart with items
-  const userId = req.user._conditions._id;
+  const userId = req.session.user._id;
   const user = await UserModel.findById(userId);
   const usersCourses = user.cart.items;
 
