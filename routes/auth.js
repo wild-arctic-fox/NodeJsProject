@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const UserModel = require("../dbModels/userModel");
 const { Exception } = require("handlebars");
+const bcrypt = require('bcryptjs');
 
 /////////////////////////////////////////////////////////
 // Router for displaying login or registration form
@@ -31,7 +32,8 @@ router.post("/login/signIn", async (req, res) => {
     const {emailin:email, passwordin:password} = req.body;
     const existedUser = await UserModel.findOne({email});
     if(existedUser){
-      if(password === existedUser.password){
+      const isEq = await bcrypt.compare(password, existedUser.password)
+      if(isEq){
         req.session.isAuth = true; // already sing in
         req.session.user = existedUser;
         req.session.save(err=>{
@@ -61,7 +63,8 @@ router.post("/login/signUp", async (req, res) => {
     if(existedUser){
       res.redirect("/login#register");
     }else{
-      const user = new UserModel({name, email, password, cart:{items:[]}})
+      const hashedpwd = await bcrypt.hash(password,10);
+      const user = new UserModel({name, email, password:hashedpwd, cart:{items:[]}})
       user.save();
       res.redirect("/login#login");
     }
