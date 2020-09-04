@@ -3,12 +3,12 @@
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s6 indigo darken-4"><a href="#login">Sign in</a></li>
-                <li class="tab col s6 indigo darken-4"><a href="#register">Sing up</a></li>
+                <li class="tab col s6 indigo darken-4"><a href="#register">Sign up</a></li>
             </ul>
         </div>
         <div id="login" class="col s6 offset-s4"><div class="row forms">
-                 <div><h5 class="white-text">Sing in</h5></div>
-                <form class="col s12" action="/addCourse" method="POST">
+                 <div><h5 class="white-text">Sign in</h5></div>
+                <form class="col s12" action="/login/signIn" method="POST">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="usernamein" type="text" class="validate" name="usernamein">
@@ -26,8 +26,8 @@
             </div></div>
         <div id="register" class="col s6 offset-s4">
             <div class="row forms">
-                 <div><h5 class="white-text">Sing up</h5></div>
-                <form class="col s12" action="/addCourse" method="POST">
+                 <div><h5 class="white-text">Sign up</h5></div>
+                <form class="col s12" action="/login/signUp" method="POST">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="username" type="text" class="validate" name="username">

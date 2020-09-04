@@ -6,11 +6,15 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/">Main</a></li>
             <li><a href="/courses">Courses</a></li>
-            <li><a href="/orders">Orders</a></li>
-            <li><a href="/addCourse">Add Course</a></li>
-            <li><a href="/cart">Cart</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="/login#login">Sign in/up</a></li>
+            {{#if isAuth}}
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/addCourse">Add Course</a></li>
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/logout">Log out</a></li>
+            {{else}}
+                <li><a href="/login#login">Sign in/up</a></li>
+            {{/if}}
         </ul>
     </div>
 </nav>

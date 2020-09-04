@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const handlebar = require("express-handlebars");
+const session = require("express-session");
+const sessVars = require("./middleware/sessVariables");
 const mainPage = require("./routes/main-page");
 const aboutPage = require("./routes/about");
 const coursesPage = require("./routes/courses");
@@ -47,6 +49,15 @@ app.use(async(req,res,next)=>{
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 
+/////////////////////////////////////////////////////////
+// Configure session
+/////////////////////////////////////////////////////////
+app.use(session({
+  secret: 'multiverse', //This is the secret used to sign the session ID cookie
+  resave: false, //Forces the session to be saved back to the session store
+  saveUninitialized : false //Forces a session that is "uninitialized" to be saved to the store
+}));
+app.use(sessVars); //check is user already sign in
 
 /////////////////////////////////////////////////////////
 // Add routers
@@ -57,7 +68,7 @@ app.use("/orders", ordersPage);
 app.use("/about", aboutPage);
 app.use("/addCourse", addCousePage);
 app.use("/cart", cartPage);
-app.use("/login", authPage);
+app.use("/", authPage);
 
 
 /////////////////////////////////////////////////////////
