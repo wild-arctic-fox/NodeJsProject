@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const handlebar = require("express-handlebars");
 const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
+const csurf = require("csurf");
 const sessVars = require("./middleware/sessVariables");
 const mainPage = require("./routes/main-page");
 const aboutPage = require("./routes/about");
@@ -59,6 +60,7 @@ app.use(session({
   saveUninitialized : false, //Forces a session that is "uninitialized" to be saved to the store
   store
 }));
+app.use(csurf()); // for safety
 app.use(sessVars); //check is user already sign in
 
 /////////////////////////////////////////////////////////

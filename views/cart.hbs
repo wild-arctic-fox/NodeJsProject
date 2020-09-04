@@ -13,7 +13,8 @@
             <tr>
                 <td>{{name}}</td>
                 <td>{{count}}</td>
-                <td><input type="button" data-id="{{_id}}" name="delete" class="btn" value="Delete"></td>
+                <td><input type="button" data-id="{{_id}}" name="delete"
+                class="btn" value="Delete" data-csrf="{{@root.csrf}}"></td>
             </tr>
             {{/each}}
         </tbody>
@@ -26,6 +27,7 @@
         </tfoot>
     </table>
     <form action="/orders" method="post">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
         <input type="submit" class="btn">
     </form>
 </div>

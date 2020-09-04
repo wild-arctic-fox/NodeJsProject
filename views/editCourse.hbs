@@ -1,5 +1,6 @@
 <div class="row forms">
     <form class="col s12" action="/courses/{{data._id}}/edit" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
         <div class="row">
             <div class="input-field col s6">
                 <span class="white-text">Course name</span>

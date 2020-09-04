@@ -4,9 +4,11 @@ function addEvent() {
   document.getElementsByName("delete").forEach((item) => {
     item.addEventListener("click", (event) => {
       const id = event.target.dataset.id;
+      const csrf = event.target.dataset.csrf;
       // Ajax
       fetch(`/cart/delete/${id}`, {
         method: "delete",
+        headers: {'X-XSRF-TOKEN': csrf}
       })
         .then((res) => res.json())
         .then((data) => {
@@ -17,7 +19,7 @@ function addEvent() {
                 return `<tr>
                         <td>${item2.name}</td>
                         <td>${item2.count}</td>
-                        <td><input type="button" data-id="${item2._id}" name="delete" class="btn" value="Delete"></td>
+                        <td><input type="button" data-id="${item2._id}" data-csrf="${csrf}" name="delete" class="btn" value="Delete"></td>
                         </tr>`;
                 }).join("");
             document.querySelector("tbody").innerHTML = html;

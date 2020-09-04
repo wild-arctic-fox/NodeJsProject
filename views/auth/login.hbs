@@ -9,6 +9,7 @@
         <div id="login" class="col s6 offset-s4"><div class="row forms">
                  <div><h5 class="white-text">Sign in</h5></div>
                 <form class="col s12" action="/login/signIn" method="POST">
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="emailin" type="email" class="validate" name="emailin">
@@ -28,6 +29,7 @@
             <div class="row forms">
                  <div><h5 class="white-text">Sign up</h5></div>
                 <form class="col s12" action="/login/signUp" method="POST">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="username" type="text" class="validate" name="username">
