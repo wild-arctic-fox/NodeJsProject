@@ -11,7 +11,7 @@ const router = Router();
 router.get("/login", async (req, res) => {
   const user = await UserModel.findById('5f4e8471b74ea91544f5831a');
   req.session.user = user;
-  req.session.isAuth = true;
+  //req.session.isAuth = true;
   req.session.save(err=>{
     if(err){
       throw new Error(err);

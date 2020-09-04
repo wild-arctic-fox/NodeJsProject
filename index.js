@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const handlebar = require("express-handlebars");
 const session = require("express-session");
+const MongoStore = require("connect-mongodb-session")(session);
 const sessVars = require("./middleware/sessVariables");
 const mainPage = require("./routes/main-page");
 const aboutPage = require("./routes/about");
@@ -31,20 +32,20 @@ const hbs = handlebar.create({
   extname: EXT,
 });
 
+/////////////////////////////////////////////////////////
+// Configure mongo store
+/////////////////////////////////////////////////////////
+const store = new MongoStore({
+    collection:'sessions',
+    uri: DATA_BASE_URL
+});
+
+
 const app = express();
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 app.set("views", "views");
 
-// app.use(async(req,res,next)=>{
-//   try {
-//     const user = UserModel.findById(USER_ID);
-//     req.user = user;
-//     next();
-//   } catch (error) {
-//     throw new Exception(e);
-//   }
-// });
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
@@ -55,7 +56,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: 'multiverse', //This is the secret used to sign the session ID cookie
   resave: false, //Forces the session to be saved back to the session store
-  saveUninitialized : false //Forces a session that is "uninitialized" to be saved to the store
+  saveUninitialized : false, //Forces a session that is "uninitialized" to be saved to the store
+  store
 }));
 app.use(sessVars); //check is user already sign in
 
@@ -77,16 +79,6 @@ app.use("/", authPage);
 const startServer = async () => {
   try {
     await mongoose.connect(DATA_BASE_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
-    // const user = await UserModel.findOne();
-    // if(!user){
-    //   //create new user
-    //   const newUser = new UserModel({
-    //     name:'Alyona',
-    //     email:'qwerty@gmail.com',
-    //     cart:{items:[]}
-    //   });
-    //   await newUser.save();
-    // } 
     app.listen(PORT, () => {
       console.log("First Log");
     });

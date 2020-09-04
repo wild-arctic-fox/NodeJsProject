@@ -2,6 +2,7 @@ const { Router } = require("express");
 const CourseModel = require("../dbModels/courseModel");
 const UserModel = require("../dbModels/userModel");
 const _ = require("lodash");
+const auth = require("../middleware/auth");
 
 /////////////////////////////////////////////////////////
 // Router for adding course to the cart
@@ -10,7 +11,7 @@ const router = Router();
 
 /////////////////////////////////////////////////////////
 // Receive id course after submit
-router.post("/add", async (req, res) => {
+router.post("/add", auth, async (req, res) => {
   // 1 - get course
   const course = await CourseModel.findById(req.body.id);
   // 2 - get course _id
@@ -44,7 +45,7 @@ router.post("/add", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Display data in the cart
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const userId = req.session.user._id;
   const user = await UserModel.findById(userId);
   
@@ -65,7 +66,7 @@ router.get("/", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Remove course by ID from cart (ajax)
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", auth, async (req, res) => {
   // 1 - get cart with items
   const userId = req.session.user._id;
   const user = await UserModel.findById(userId);

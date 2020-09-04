@@ -2,6 +2,7 @@ const { Router } = require("express");
 const OrderModel = require("../dbModels/orderModel");
 const UserModel = require("../dbModels/userModel");
 const { Exception } = require("handlebars");
+const auth = require("../middleware/auth");
 
 /////////////////////////////////////////////////////////
 // Router for displaying orders
@@ -10,7 +11,7 @@ const router = Router();
 
 /////////////////////////////////////////////////////////
 // Router for displaying all orders
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const order = await OrderModel.find({
       "user.userId": req.session.user._id,
@@ -45,7 +46,7 @@ router.get("/", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Move cart data to the order model
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const userId = req.session.user._id;
     const user = await UserModel.findById(userId);

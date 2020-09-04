@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const CourseModel = require("../dbModels/courseModel");
 const { Exception } = require("handlebars");
+const auth = require("../middleware/auth");
 
 /////////////////////////////////////////////////////////
 // Router for adding new Course
@@ -9,7 +10,7 @@ const router = Router();
 
 /////////////////////////////////////////////////////////
 // Display empty form
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   res.render("addCourse", {
     title: "Add Course",
     data: {},
@@ -18,7 +19,7 @@ router.get("/", (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Receive data after submit
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { name, author, email, price, en, rus, resourses } = req.body;
   const courseModel = new CourseModel({
     name,

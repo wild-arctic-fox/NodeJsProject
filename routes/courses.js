@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const CourseModel = require('../dbModels/courseModel');
+const auth = require("../middleware/auth");
 
 /////////////////////////////////////////////////////////
 // Router for displaying courses
@@ -32,7 +33,7 @@ router.get("/:id", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Router for editing course by ID
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", auth, async (req, res) => {
   const data = await CourseModel.findById(req.params.id).lean();
   res.render("editCourse", {
     title: 'Edit',
@@ -44,7 +45,7 @@ router.get("/:id/edit", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Receive edited data after submit
-router.post('/:id/edit',async(req, res)=>{
+router.post('/:id/edit', auth, async(req, res)=>{
   const { name, author, email, price, en, rus, resourses } = req.body;
   const courseModel = {
     name,
@@ -62,7 +63,7 @@ router.post('/:id/edit',async(req, res)=>{
 
 /////////////////////////////////////////////////////////
 // Receive id course, needded to delete & delete it
-router.post('/remove',async(req, res)=>{
+router.post('/remove', auth, async(req, res)=>{
   await CourseModel.deleteOne({_id:req.body.id});
   res.redirect('/courses');
 })
