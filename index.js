@@ -13,15 +13,8 @@ const cartPage = require("./routes/cart");
 const authPage = require("./routes/auth");
 const ordersPage = require("./routes/orders");
 const flash = require("connect-flash");
+const config = require('./config/config');
 
-
-// Constans
-const PORT = 3000;
-const EXT = "hbs"; //handlebars
-const PASSWORD = "Rr3XE0ztcNYHBexp";
-const USER_NAME = "pJane";
-const DATA_BASE_NAME = 'CoursesShop'
-const DATA_BASE_URL = `mongodb+srv://${USER_NAME}:${PASSWORD}@cluster0.gehfl.mongodb.net/${DATA_BASE_NAME}?retryWrites=true&w=majority`;
 
 
 /////////////////////////////////////////////////////////
@@ -29,7 +22,7 @@ const DATA_BASE_URL = `mongodb+srv://${USER_NAME}:${PASSWORD}@cluster0.gehfl.mon
 /////////////////////////////////////////////////////////
 const hbs = handlebar.create({
   defaultLayout: "main",
-  extname: EXT,
+  extname: config.EXT,
 });
 
 /////////////////////////////////////////////////////////
@@ -37,7 +30,7 @@ const hbs = handlebar.create({
 /////////////////////////////////////////////////////////
 const store = new MongoStore({
     collection:'sessions',
-    uri: DATA_BASE_URL
+    uri: config.DATA_BASE_URL
 });
 
 
@@ -54,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configure session
 /////////////////////////////////////////////////////////
 app.use(session({
-  secret: 'multiverse', //This is the secret used to sign the session ID cookie
+  secret: config.SECRET, //This is the secret used to sign the session ID cookie
   resave: false, //Forces the session to be saved back to the session store
   saveUninitialized : false, //Forces a session that is "uninitialized" to be saved to the store
   store
@@ -80,8 +73,8 @@ app.use("/", authPage);
 /////////////////////////////////////////////////////////
 const startServer = async () => {
   try {
-    await mongoose.connect(DATA_BASE_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
-    app.listen(PORT, () => {
+    await mongoose.connect(config.DATA_BASE_URL, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true});
+    app.listen(config.PORT, () => {
       console.log("First Log");
     });
   } catch (e) {
