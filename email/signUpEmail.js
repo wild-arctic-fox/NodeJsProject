@@ -7,7 +7,6 @@ module.exports = (email) => {
     subject: 'Account created',
     html: `
     <h1>Hello !!!</h1>
-    <a href="${HOST}" >click me</a>
-    `
+    <a href="${HOST}" >click me</a>`
   };
 };

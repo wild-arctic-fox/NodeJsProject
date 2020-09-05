@@ -1,0 +1,16 @@
+<div>
+    <form class="col s12 forms white-text" action="/login/reset" method="POST">
+        <h5>Reset password</h5>
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="row">
+            <div class="input-field col s12">
+                {{#if errorEmail}}
+                <div class="white-text">{{errorEmail}}</div>
+                {{/if}}
+                <input id="emailin" type="email" class="validate" name="emailin">
+                <label for="emailin">Input email</label>
+            </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Send Code</button>
+    </form>
+</div>

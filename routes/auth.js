@@ -13,14 +13,14 @@ const {SENDGRID_API_KEY} = require('../config/config');
 const router = Router();
 
 
-/**
- * To send emails you need a transporter object
- * 
- * transporter is going to be an object that is able to send mail
- * transport is the transport configuration object, connection url or a transport plugin instance
- */
+/////////////////////////////////////////////////////////
+// To send emails you need a transporter object
+// 
+// transporter is going to be an object that is able to send mail
+// transport is the transport configuration object, connection url or a transport plugin instance
 const transport = sendgrid({auth:{api_key:SENDGRID_API_KEY}});
 const transporter = nodemailer.createTransport(transport)
+
 
 /////////////////////////////////////////////////////////
 // Display login and register forms
@@ -107,5 +107,19 @@ router.post("/login/signUp", async (req, res) => {
   } catch (e) {
     throw new Exception(e)
   }
+});
+
+/////////////////////////////////////////////////////////
+// Display form to reset password
+router.get("/login/reset", async (req, res) => {
+  res.render("auth/reset", {
+    title: "Reset",
+    errorEmail : req.flash('error_email'),
+  });
+});
+
+
+router.post("/login/reset", async (req, res) => {
+
 });
 module.exports = router;
