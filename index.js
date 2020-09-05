@@ -12,13 +12,12 @@ const addCousePage = require("./routes/addCourse");
 const cartPage = require("./routes/cart");
 const authPage = require("./routes/auth");
 const ordersPage = require("./routes/orders");
-const UserModel = require("./dbModels/userModel");
+const flash = require("connect-flash");
 
 
 // Constans
 const PORT = 3000;
 const EXT = "hbs"; //handlebars
-const USER_ID = '5f4e8471b74ea91544f5831a';
 const PASSWORD = "Rr3XE0ztcNYHBexp";
 const USER_NAME = "pJane";
 const DATA_BASE_NAME = 'CoursesShop'
@@ -61,6 +60,7 @@ app.use(session({
   store
 }));
 app.use(csurf()); // for safety
+app.use(flash()); // used for storing messages
 app.use(sessVars); //check is user already sign in
 
 /////////////////////////////////////////////////////////

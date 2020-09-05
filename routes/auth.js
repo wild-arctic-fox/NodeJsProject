@@ -13,6 +13,10 @@ const router = Router();
 router.get("/login", async (req, res) => {
   res.render("auth/login", {
     title: "Sign in/up",
+    errorEmailIn: req.flash('error_emailin'),
+    errorEmail : req.flash('error_email'),
+    errorPwd : req.flash('error_pwd'),
+    errorPwdMatch : req.flash('error_pwd_match')
   });
 });
 
@@ -43,9 +47,15 @@ router.post("/login/signIn", async (req, res) => {
           res.redirect("/")
         });
       }else{
+        const key = 'error_pwd';
+        const message = 'Incorrect password';
+        req.flash(key, message);
         res.redirect("/login#login");
       }
     }else{
+      const key = 'error_emailin';
+      const message = 'Incorrect email';
+      req.flash(key, message);
       res.redirect("/login#login");
     }
   }catch(e){
@@ -61,12 +71,22 @@ router.post("/login/signUp", async (req, res) => {
     const {username:name , email, password1:password, password2} = req.body;
     const existedUser = await UserModel.findOne({email});
     if(existedUser){
+      const key = 'error_email';
+      const message = 'User with this email already exist';
+      req.flash(key, message);
       res.redirect("/login#register");
     }else{
-      const hashedpwd = await bcrypt.hash(password,10);
-      const user = new UserModel({name, email, password:hashedpwd, cart:{items:[]}})
-      user.save();
-      res.redirect("/login#login");
+      if(password2 === password){
+        const hashedpwd = await bcrypt.hash(password,10);
+        const user = new UserModel({name, email, password:hashedpwd, cart:{items:[]}})
+        user.save();
+        res.redirect("/login#login");
+      } else {
+        const key = 'error_pwd_match';
+        const message = 'Passwords don`t match';
+        req.flash(key, message);
+        res.redirect("/login#register");
+      }
     }
   } catch (e) {
     throw new Exception(e)

@@ -12,12 +12,18 @@
                     <input type="hidden" name="_csrf" value="{{csrf}}">
                     <div class="row">
                         <div class="input-field col s12">
+                            {{#if errorEmailIn}}
+                                <div class="white-text">{{errorEmailIn}}</div>
+                            {{/if}}
                             <input id="emailin" type="email" class="validate" name="emailin">
                             <label for="emailin">Input email</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            {{#if errorPwd}}
+                                <div class="white-text">{{errorPwd}}</div>
+                            {{/if}}
                             <input id="passwordin" type="password" class="validate" name="passwordin">
                             <label for="passwordin">Input password</label>
                         </div>
@@ -38,11 +44,17 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            {{#if errorEmail}}
+                                <div class="white-text">{{errorEmail}}</div>
+                            {{/if}}
                             <input id="email" type="email" class="validate" name="email">
                             <label for="email">Input email</label>
                         </div>
                     </div>
                     <div class="row">
+                        {{#if errorPwdMatch}}
+                                <div class="white-text">{{errorPwdMatch}}</div>
+                         {{/if}}
                         <div class="input-field col s12">
                             <input id="password1" type="password" class="validate" name="password1">
                             <label for="password1">Input password</label>
