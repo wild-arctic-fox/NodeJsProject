@@ -1,12 +1,26 @@
 const { Router } = require("express");
 const UserModel = require("../dbModels/userModel");
+const emailTemplate = require("../email/signUpEmail");
 const { Exception } = require("handlebars");
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendgrid = require('nodemailer-sendgrid-transport');
+const {SENDGRID_API_KEY} = require('../config/config');
 
 /////////////////////////////////////////////////////////
 // Router for displaying login or registration form
 /////////////////////////////////////////////////////////
 const router = Router();
+
+
+/**
+ * To send emails you need a transporter object
+ * 
+ * transporter is going to be an object that is able to send mail
+ * transport is the transport configuration object, connection url or a transport plugin instance
+ */
+const transport = sendgrid({auth:{api_key:SENDGRID_API_KEY}});
+const transporter = nodemailer.createTransport(transport)
 
 /////////////////////////////////////////////////////////
 // Display login and register forms
@@ -44,7 +58,7 @@ router.post("/login/signIn", async (req, res) => {
           if(err){
             throw new Error(err);
           }
-          res.redirect("/")
+          res.redirect("/");
         });
       }else{
         const key = 'error_pwd';
@@ -81,6 +95,8 @@ router.post("/login/signUp", async (req, res) => {
         const user = new UserModel({name, email, password:hashedpwd, cart:{items:[]}})
         user.save();
         res.redirect("/login#login");
+        // send email (https://nodemailer.com/message/)
+        await transporter.sendMail(emailTemplate(email));
       } else {
         const key = 'error_pwd_match';
         const message = 'Passwords don`t match';
