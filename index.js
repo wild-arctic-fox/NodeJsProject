@@ -14,7 +14,7 @@ const authPage = require("./routes/auth");
 const ordersPage = require("./routes/orders");
 const flash = require("connect-flash");
 const config = require('./config/config');
-
+const hbsHelper = require('./utils/hbs_helpers');
 
 
 /////////////////////////////////////////////////////////
@@ -23,6 +23,7 @@ const config = require('./config/config');
 const hbs = handlebar.create({
   defaultLayout: "main",
   extname: config.EXT,
+  helpers: require('./utils/hbs_helpers')
 });
 
 /////////////////////////////////////////////////////////

@@ -130,7 +130,6 @@ router.get("/login/password/:token", async (req, res) => {
   }
   try{
     const user = UserModel.findOne({resetToken: token, resetDate: {$gt: Date.now()}});
-    //console.log(user.schema.tree._id)
     if(!user){
       return  res.redirect("/login#login");
     } else {

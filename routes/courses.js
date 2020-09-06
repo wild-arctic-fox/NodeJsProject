@@ -26,7 +26,8 @@ router.get("/:id", async (req, res) => {
   res.render("course", {
     title: 'Course',
     layout: 'empty',
-    data
+    data,
+    userId: req.session.user? req.session.user._id.toString(): null
   }); 
 });
 
@@ -35,6 +36,9 @@ router.get("/:id", async (req, res) => {
 // Router for editing course by ID
 router.get("/:id/edit", auth, async (req, res) => {
   const data = await CourseModel.findById(req.params.id).lean();
+  if(req.session.user._id.toString() !== data.idUser.toString()){
+    return res.redirect('/courses');
+  }
   res.render("editCourse", {
     title: 'Edit',
     layout: 'empty',
@@ -64,7 +68,10 @@ router.post('/:id/edit', auth, async(req, res)=>{
 /////////////////////////////////////////////////////////
 // Receive id course, needded to delete & delete it
 router.post('/remove', auth, async(req, res)=>{
-  await CourseModel.deleteOne({_id:req.body.id});
+  await CourseModel.deleteOne({
+    _id: req.body.id,
+    idUser: req.session.user._id
+  });
   res.redirect('/courses');
 })
 
