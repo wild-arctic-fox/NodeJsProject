@@ -38,6 +38,11 @@ input {
   color: aliceblue;
 }
 
+.red-text{
+  font-weight: bold;
+  color: red;
+}
+
 .currency{
   float: left;
   margin: 30px;

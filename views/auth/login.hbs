@@ -9,21 +9,18 @@
         <div id="login" class="col s6 offset-s4"><div class="row forms">
                  <div><h5 class="white-text">Sign in</h5></div>
                 <form class="col s12" action="/login/signIn" method="POST">
+                {{#if errorIn}}
+                        <div class="red-text">{{errorIn}}</div>
+                {{/if}}
                     <input type="hidden" name="_csrf" value="{{csrf}}">
                     <div class="row">
                         <div class="input-field col s12">
-                            {{#if errorEmailIn}}
-                                <div class="white-text">{{errorEmailIn}}</div>
-                            {{/if}}
                             <input id="emailin" type="email" class="validate" name="emailin">
                             <label for="emailin">Input email</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            {{#if errorPwd}}
-                                <div class="white-text">{{errorPwd}}</div>
-                            {{/if}}
                             <input id="passwordin" type="password" class="validate" name="passwordin">
                             <label for="passwordin">Input password</label>
                         </div>
@@ -35,7 +32,10 @@
         <div id="register" class="col s6 offset-s4">
             <div class="row forms">
                  <div><h5 class="white-text">Sign up</h5></div>
-                <form class="col s12" action="/login/signUp" method="POST">
+                <form class="col s12" action="/login/signUp" method="POST" novalidate>
+                {{#if errorUp}}
+                        <div class="red-text">{{errorUp}}</div>
+                {{/if}}
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                     <div class="row">
                         <div class="input-field col s12">
@@ -45,17 +45,11 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            {{#if errorEmail}}
-                                <div class="white-text">{{errorEmail}}</div>
-                            {{/if}}
                             <input id="email" type="email" class="validate" name="email">
                             <label for="email">Input email</label>
                         </div>
                     </div>
                     <div class="row">
-                        {{#if errorPwdMatch}}
-                                <div class="white-text">{{errorPwdMatch}}</div>
-                         {{/if}}
                         <div class="input-field col s12">
                             <input id="password1" type="password" class="validate" name="password1">
                             <label for="password1">Input password</label>

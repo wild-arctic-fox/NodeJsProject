@@ -8,6 +8,8 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const sendgrid = require('nodemailer-sendgrid-transport');
 const {SENDGRID_API_KEY} = require('../config/config');
+const {signUpValidator, signInValidator} = require('../utils/validators');
+const { validationResult } = require('express-validator');
 
 /////////////////////////////////////////////////////////
 // Router for displaying login or registration form
@@ -29,10 +31,8 @@ const transporter = nodemailer.createTransport(transport)
 router.get("/login", async (req, res) => {
   res.render("auth/login", {
     title: "Sign in/up",
-    errorEmailIn: req.flash('error_emailin'),
-    errorEmail : req.flash('error_email'),
-    errorPwd : req.flash('error_pwd'),
-    errorPwdMatch : req.flash('error_pwd_match')
+    errorIn: req.flash('error_in'),
+    errorUp : req.flash('error_up')
   });
 });
 
@@ -47,33 +47,24 @@ router.get("/logout", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Recieve data to sign in
-router.post("/login/signIn", async (req, res) => {
+router.post("/login/signIn", signInValidator, async (req, res) => {
   try{
     const {emailin:email, passwordin:password} = req.body;
     const existedUser = await UserModel.findOne({email});
-    if(existedUser){
-      const isEq = await bcrypt.compare(password, existedUser.password)
-      if(isEq){
-        req.session.isAuth = true; // already sing in
-        req.session.user = existedUser;
-        req.session.save(err=>{
-          if(err){
-            throw new Error(err);
-          }
-          res.redirect("/");
-        });
-      }else{
-        const key = 'error_pwd';
-        const message = 'Incorrect password';
-        req.flash(key, message);
-        res.redirect("/login#login");
-      }
-    }else{
-      const key = 'error_emailin';
-      const message = 'Incorrect email';
-      req.flash(key, message);
-      res.redirect("/login#login");
+    const result = validationResult(req);
+    if(!result.isEmpty()){
+        const {errors} = result
+        req.flash('error_in', errors[0].msg)
+        return  res.status(422).redirect("/login#login");
     }
+    req.session.isAuth = true; // already sing in
+    req.session.user = existedUser;
+    req.session.save(err=>{
+      if(err){
+        throw new Error(err);
+      }
+      res.redirect("/");
+    });
   }catch(e){
       throw new Exception(e);
   }
@@ -82,30 +73,22 @@ router.post("/login/signIn", async (req, res) => {
 
 /////////////////////////////////////////////////////////
 // Recieve data to sign up
-router.post("/login/signUp", async (req, res) => {
+router.post("/login/signUp", signUpValidator, async (req, res) => {
   try{
-    const {username:name , email, password1:password, password2} = req.body;
-    const existedUser = await UserModel.findOne({email});
-    if(existedUser){
-      const key = 'error_email';
-      const message = 'User with this email already exist';
-      req.flash(key, message);
-      res.redirect("/login#register");
-    }else{
-      if(password2 === password){
-        const hashedpwd = await bcrypt.hash(password,10);
-        const user = new UserModel({name, email, password:hashedpwd, cart:{items:[]}})
-        user.save();
-        res.redirect("/login#login");
-        // send email (https://nodemailer.com/message/)
-        await transporter.sendMail(emailTemplate(email));
-      } else {
-        const key = 'error_pwd_match';
-        const message = 'Passwords don`t match';
-        req.flash(key, message);
-        res.redirect("/login#register");
-      }
+    const result = validationResult(req);
+    if(!result.isEmpty()){
+        const {errors} = result
+        req.flash('error_up', errors[0].msg)
+        //422 Unprocessable Entity («необрабатываемый экземпляр»)
+        return  res.status(422).redirect("/login#register");
     }
+    const {username:name , email, password1:password} = req.body;
+    const hashedpwd = await bcrypt.hash(password,10);
+    const user = new UserModel({name, email, password:hashedpwd, cart:{items:[]}})
+    user.save();
+    res.redirect("/login#login");
+    // send email (https://nodemailer.com/message/)
+    await transporter.sendMail(emailTemplate(email));
   } catch (e) {
     throw new Exception(e)
   }
@@ -166,7 +149,7 @@ router.post("/login/password", async (req, res) => {
 });
 
 /////////////////////////////////////////////////////////
-// Recieve email and sent tmp key
+// Recieve email and sent tmp key 
 router.post("/login/reset", (req, res) => {
   try{
     // 1 - generate random key
@@ -197,4 +180,5 @@ router.post("/login/reset", (req, res) => {
     throw new Exception(e);
   }
 });
+
 module.exports = router;
