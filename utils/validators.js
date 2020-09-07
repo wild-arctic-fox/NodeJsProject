@@ -79,3 +79,30 @@ exports.signInValidator = [
     }).isAlphanumeric()
     .trim(),
 ];
+
+exports.courseValidator = [
+  // check name format
+  body(
+    "name",
+    "Incorrect type of name\n 3 alphanumeric symbols is required"
+  ).isLength({ min: 3, max: 200 })
+    .trim(),
+
+  // check email format
+  body("email")
+  .isEmail()
+  .withMessage("Incorrect email"),
+
+  // check author name format
+  body(
+    "author",
+    "Incorrect type of author name\n 3 alphanumeric symbols is required"
+  ).isLength({ min: 3, max: 200 })
+    .trim(),
+
+  // check price format
+  body(
+    "price",
+    "Incorrect  price"
+  ).isNumeric(),
+];

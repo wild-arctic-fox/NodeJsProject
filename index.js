@@ -5,6 +5,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
 const csurf = require("csurf");
 const sessVars = require("./middleware/sessVariables");
+const errPage = require("./middleware/error404");
 const mainPage = require("./routes/main-page");
 const aboutPage = require("./routes/about");
 const coursesPage = require("./routes/courses");
@@ -67,7 +68,9 @@ app.use("/about", aboutPage);
 app.use("/addCourse", addCousePage);
 app.use("/cart", cartPage);
 app.use("/", authPage);
+app.use("/", authPage);
 
+app.use(errPage);
 
 /////////////////////////////////////////////////////////
 // Create server with MongoDB

@@ -4,6 +4,9 @@
 <div>
     <div class="only-card s6 m6">
         <div class="card indigo darken-4">
+            {{#if  errorCourse}}
+            <div class="red-text">{{ errorCourse}}</div>
+             {{/if}}
             <div class="card-content white-text">
                 <span class="card-title">{{data.name}}</span>
                 <h6>Price: {{data.price}} $ </h6>

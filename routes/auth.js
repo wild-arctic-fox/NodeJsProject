@@ -94,6 +94,7 @@ router.post("/login/signUp", signUpValidator, async (req, res) => {
   }
 });
 
+
 /////////////////////////////////////////////////////////
 // Display form(email) to reset password
 router.get("/login/reset", async (req, res) => {
@@ -147,6 +148,7 @@ router.post("/login/password", async (req, res) => {
     throw new Exception(e);
   }
 });
+
 
 /////////////////////////////////////////////////////////
 // Recieve email and sent tmp key 

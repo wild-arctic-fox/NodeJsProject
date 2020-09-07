@@ -1,19 +1,22 @@
 <div class="row forms">
     <form class="col s12" action="/addCourse" method="POST">
+    {{#if  errorCourse}}
+            <div class="red-text">{{ errorCourse}}</div>
+    {{/if}}
     <input type="hidden" name="_csrf" value="{{csrf}}">
         <div class="row">
             <div class="input-field col s6">
-                <input id="name" type="text" class="validate" name="name">
+                <input id="name" type="text" class="validate" name="name" value="{{values.name}}">
                 <label for="name">Course name</label>
             </div>
             <div class="input-field col s6">
-                <input id="author" type="text" class="validate" name="author">
+                <input id="author" type="text" class="validate" name="author" value="{{values.author}}">
                 <label for="author">Author</label>
             </div>
         </div>
         <div class="row price">
             <div class="input-field col s12 ">
-                <input id="price" type="number" class="validate" name="price">
+                <input id="price" type="number" class="validate" name="price" value="{{values.price}}">
                 <label for="price">Price</label>
             </div>
         </div>
@@ -22,7 +25,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input id="email" type="email" class="validate" name="email">
+                <input id="email" type="email" class="validate" name="email" value="{{values.email}}">
                 <label for="email">Email</label>
             </div>
         </div>
@@ -31,20 +34,32 @@
             <h6 class="white-text">Resourses</h6>
             <label>
                 Off
-                <input type="checkbox" name="resourses">
+                {{#if  values.resourses}}
+                <input type="checkbox" name="resourses" checked>
+                {{else}}
+                 <input type="checkbox" name="resourses" >
+                 {{/if}}
                 <span class="lever"></span>
                 On
             </label>
         </div>
         <p>
             <label>
-                <input type="checkbox" name="en" value="true"/>
+                {{#if  values.en}}
+                <input type="checkbox" name="en" checked>
+                {{else}}
+                 <input type="checkbox" name="en" >
+                 {{/if}}
                 <span>English</span>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" name="rus" />
+                {{#if  values.rus}}
+                <input type="checkbox" name="rus" checked>
+                {{else}}
+                 <input type="checkbox" name="rus" >
+                 {{/if}}
                 <span>Russian</span>
             </label>
         </p>
