@@ -6,16 +6,16 @@ const MongoStore = require("connect-mongodb-session")(session);
 const csurf = require("csurf");
 const sessVars = require("./middleware/sessVariables");
 const errPage = require("./middleware/error404");
+const flash = require("connect-flash");
 const mainPage = require("./routes/main-page");
 const aboutPage = require("./routes/about");
 const coursesPage = require("./routes/courses");
+const profilePage = require("./routes/profile");
 const addCousePage = require("./routes/addCourse");
 const cartPage = require("./routes/cart");
 const authPage = require("./routes/auth");
 const ordersPage = require("./routes/orders");
-const flash = require("connect-flash");
 const config = require('./config/config');
-const hbsHelper = require('./utils/hbs_helpers');
 
 
 /////////////////////////////////////////////////////////
@@ -54,6 +54,8 @@ app.use(session({
   saveUninitialized : false, //Forces a session that is "uninitialized" to be saved to the store
   store
 }));
+
+
 app.use(csurf()); // for safety
 app.use(flash()); // used for storing messages
 app.use(sessVars); //check is user already sign in
@@ -66,8 +68,8 @@ app.use("/courses", coursesPage);
 app.use("/orders", ordersPage);
 app.use("/about", aboutPage);
 app.use("/addCourse", addCousePage);
+app.use("/profile", profilePage);
 app.use("/cart", cartPage);
-app.use("/", authPage);
 app.use("/", authPage);
 
 app.use(errPage);
