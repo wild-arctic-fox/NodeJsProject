@@ -1,4 +1,3 @@
-const USER_NAME = "pJane";
 module.exports = {
  // Constans
  HOST : process.env.HOST,
