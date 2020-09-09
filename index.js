@@ -15,7 +15,9 @@ const addCousePage = require("./routes/addCourse");
 const cartPage = require("./routes/cart");
 const authPage = require("./routes/auth");
 const ordersPage = require("./routes/orders");
-const config = require('./config/config');
+const config = require('./config');
+const helmet = require("helmet");
+const compression = require('compression');
 
 
 /////////////////////////////////////////////////////////
@@ -58,7 +60,9 @@ app.use(session({
 
 app.use(csurf()); // for safety
 app.use(flash()); // used for storing messages
+app.use(helmet()); // helps you secure your Express apps by setting various HTTP headers
 app.use(sessVars); //check is user already sign in
+app.use(compression());
 
 /////////////////////////////////////////////////////////
 // Add routers
