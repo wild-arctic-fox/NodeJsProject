@@ -25,7 +25,7 @@ const hbs = handlebar.create({
   defaultLayout: "main",
   extname: config.EXT,
   helpers: require('./utils/hbs_helpers')
-});
+}); 
 
 /////////////////////////////////////////////////////////
 // Configure mongo store
